@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WBS Project</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>JeffCare</h1>
+            <p>Doctor notes</p>
+        </header>
+
+        <main>
+            <section class="api-section">
+                <h2>Test API</h2>
+                <button id="backendBtn">Message from backend</button>
+                <div id="response" class="response-box"></div>
+            </section>
+
+            <section class="form-section">
+                <h2>Send Data to backend</h2>
+                <form id="dataForm">
+                    <input 
+                        type="text" 
+                        id="nameInput" 
+                        placeholder="Enter your name" 
+                        required
+                    >
+                    <button type="submit data as string">Submit</button>
+                </form>
+                <div id="formResponse" class="response-box"></div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Ready for PostgreSQL integration</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
