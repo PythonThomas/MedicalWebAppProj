@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Character encoding and viewport settings for responsive design -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - JeffCare</title>
+    <!-- Link to main stylesheet for styling all pages -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- ============================================
+         HEADER & NAVIGATION
+         ============================================ -->
+    <!-- Main header with navigation buttons - consistent across all pages -->
+    <header class="header-container">
+        <!-- Application title/logo -->
+        <div>
+            <h1>JeffCare</h1>
+        </div>
+        <!-- Navigation button container -->
+        <div class="button-container">
+            <!-- Home button - returns to index page -->
+            <button id="homeBtn">Home</button>
+            <!-- Request Certificate button - navigates to certificate request page -->
+            <button id="reqcrtBtn">Request Certificate</button>
+            <!-- Contact button - current page -->
+            <button id="contactBtn">Contact Us</button>
+        </div>
+    </header>
+
+    <!-- ============================================
+         MAIN CONTENT AREA
+         ============================================ -->
+    <div class="container">
+        <!-- Page header section -->
+        <header>
+            <h1>Contact Us</h1>
+            <p>Reach out with your questions or feedback.</p>
+        </header>
+
+        <!-- Main content sections -->
+        <main>
+            <!-- Contact Form Section -->
+            <section class="form-section">
+                <h2>Contact Form</h2>
+                <!-- Form for collecting contact information -->
+                <form id="contactForm">
+                    <!-- User name input field -->
+                    <input type="text" id="contactName" placeholder="Your name" required>
+                    <!-- User email address input field -->
+                    <input type="email" id="contactEmail" placeholder="Your email" required>
+                    <!-- Message textarea for longer form content -->
+                    <textarea id="contactMessage" placeholder="Your message" rows="5" required></textarea>
+                    <!-- Submit button to send the contact message -->
+                    <button type="submit">Send Message</button>
+                </form>
+                <!-- Container for displaying contact form response -->
+                <div id="contactResponse" class="response-box"></div>
+            </section>
+        </main>
+
+        <!-- Footer section -->
+        <footer>
+            <p>Ready for PostgreSQL integration</p>
+        </footer>
+    </div>
+
+    <!-- Load the main JavaScript file for interactivity -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Character encoding and viewport settings for responsive design -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Certificate - JeffCare</title>
+    <!-- Link to main stylesheet for styling all pages -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- ============================================
+         HEADER & NAVIGATION
+         ============================================ -->
+    <!-- Main header with navigation buttons - consistent across all pages -->
+    <header class="header-container">
+        <!-- Application title/logo -->
+        <div>
+            <h1>JeffCare</h1>
+        </div>
+        <!-- Navigation button container -->
+        <div class="button-container">
+            <!-- Home button - returns to index page -->
+            <button id="homeBtn">Home</button>
+            <!-- Request Certificate button - current page -->
+            <button id="reqcrtBtn">Request Certificate</button>
+            <!-- Contact button - navigates to contact form page -->
+            <button id="contactBtn">Contact Us</button>
+        </div>
+    </header>
+
+    <!-- ============================================
+         MAIN CONTENT AREA
+         ============================================ -->
+    <div class="container">
+        <!-- Page header section -->
+        <header>
+            <h1>Request Certificate</h1>
+            <p>Submit your certificate request details below.</p>
+        </header>
+
+        <!-- Main content sections -->
+        <main>
+            <!-- Certificate Request Form Section -->
+            <section class="form-section">
+                <h2>Certificate Request</h2>
+                <!-- Form for collecting certificate request information -->
+                <form id="certificateForm">
+                    <!-- Full name input field -->
+                    <input type="text" id="certName" placeholder="Your full name" required>
+                    <!-- Email address input field -->
+                    <input type="email" id="certEmail" placeholder="Your email address" required>
+                    <!-- Submit button to send certificate request -->
+                    <button type="submit">Submit Request</button>
+                </form>
+                <!-- Container for displaying certificate request response -->
+                <div id="certResponse" class="response-box"></div>
+            </section>
+        </main>
+
+        <!-- Footer section -->
+        <footer>
+            <p>Ready for PostgreSQL integration</p>
+        </footer>
+    </div>
+
+    <!-- Load the main JavaScript file for interactivity -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

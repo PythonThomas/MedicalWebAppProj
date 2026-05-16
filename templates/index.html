@@ -1,45 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Character encoding and viewport settings for responsive design -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WBS Project</title>
+    <title>JeffCare</title>
+    <!-- Link to main stylesheet for styling all pages -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <!-- ============================================
+         HEADER & NAVIGATION
+         ============================================ -->
+    <!-- Main header with navigation buttons - visible on all pages -->
+    <header class = "header-container">
+        <!-- Application title/logo -->
+        <div>
+            <h1>JeffCare</h1>
+        </div>
+        <!-- Navigation button container -->
+        <div class = "button-container">
+            <!-- Home button - navigates to index -->
+            <button id = "homeBtn">Home</button>
+            <!-- Request Certificate button - navigates to certificate request page -->
+            <button id = "reqcrtBtn">Request Certificate</button>
+            <!-- Contact button - navigates to contact form page -->
+            <button id = "contactBtn">Contact Us</button>
+        </div>
+    </header>
+    
+    <!-- ============================================
+         MAIN CONTENT AREA
+         ============================================ -->
     <div class="container">
+        <!-- Page header section -->
         <header>
             <h1>JeffCare</h1>
             <p>Doctor notes</p>
         </header>
 
+        <!-- Main content sections -->
         <main>
+            <!-- API Testing Section -->
             <section class="api-section">
                 <h2>Test API</h2>
+                <!-- Button to test backend communication -->
                 <button id="backendBtn">Message from backend</button>
+                <!-- Container for displaying API response -->
                 <div id="response" class="response-box"></div>
             </section>
 
+            <!-- Form Submission Section -->
             <section class="form-section">
                 <h2>Send Data to backend</h2>
+                <!-- Form to send user input to the backend -->
                 <form id="dataForm">
+                    <!-- Name input field -->
                     <input 
                         type="text" 
                         id="nameInput" 
                         placeholder="Enter your name" 
                         required
                     >
+                    <!-- Submit button -->
                     <button type="submit data as string">Submit</button>
                 </form>
+                <!-- Container for displaying form response -->
                 <div id="formResponse" class="response-box"></div>
             </section>
         </main>
 
+        <!-- Footer section -->
         <footer>
             <p>Ready for PostgreSQL integration</p>
         </footer>
     </div>
 
+    <!-- Load the main JavaScript file for interactivity -->
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
