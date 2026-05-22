@@ -20,6 +20,10 @@ app = Flask(__name__)
 # Enable CORS to allow requests from different domains
 CORS(app)
 
+# Import API blueprint and register it under the '/api' prefix
+from routes.api_routes import api_routes
+app.register_blueprint(api_routes, url_prefix='/api')
+
 # ============================================
 # CONFIGURATION
 # ============================================
@@ -46,21 +50,12 @@ def contact():
     return render_template('contact.html')
 
 # ============================================
-# API ENDPOINTS - Provide Data to Frontend
+# API ROUTES
 # ============================================
-
-@app.route('/api/hello', methods=['GET'])
-def hello():
-    """Simple GET endpoint that returns a greeting message from the backend"""
-    return jsonify({'message': 'Hello from Python backend!'})
-
-@app.route('/api/data', methods=['POST'])
-def receive_data():
-    """Accept JSON data from frontend and return confirmation"""
-    # Extract JSON data from the request
-    data = request.json
-    # Return success response with the received data
-    return jsonify({'status': 'success', 'received': data})
+# API endpoints are defined in the `routes/api_routes.py` blueprint and
+# are registered above under the `/api` URL prefix. This keeps routing
+# responsibilities separated and the main app file focused on configuration
+# and page-serving routes.
 
 # ============================================
 # APPLICATION ENTRY POINT

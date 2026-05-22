@@ -36,22 +36,88 @@
         <!-- Page header section -->
         <header>
             <h1>Request Certificate</h1>
-            <p>Submit your certificate request details below.</p>
+            <p>Fill in the required fields below to get your medical certificate.</p>
         </header>
 
         <!-- Main content sections -->
         <main>
             <!-- Certificate Request Form Section -->
+            <!-- This form is processed by script.js using submitForm() and displays the result in certResponse. -->
             <section class="form-section">
                 <h2>Certificate Request</h2>
                 <!-- Form for collecting certificate request information -->
                 <form id="certificateForm">
-                    <!-- Full name input field -->
-                    <input type="text" id="certName" placeholder="Your full name" required>
-                    <!-- Email address input field -->
-                    <input type="email" id="certEmail" placeholder="Your email address" required>
-                    <!-- Submit button to send certificate request -->
-                    <button type="submit">Submit Request</button>
+                    <div id="stepCounter" class="step-counter">Step 1 / 4</div>
+                    <section class="form-step active">
+                        <label for="certificateReasonFor">Reason for absence</label>
+                        <select id="certificateReasonFor" required>
+                            <option value="">Select a reason</option>
+                            <option value="sick_leave">Sick leave</option>
+                            <option value="carers_leave">Carer's leave</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <div class="other-reason-field">
+                            <label for="otherReason">Please specify:</label>
+                            <input type="text" id="otherReason" placeholder="Enter your reason">
+                        </div>
+                        <p>Please note: JeffCare is currently unable to review requests for fitness to work certificates as part of the outcome of your consultation.</p>
+                        <button type="button" class="next-step">Next</button>
+                    </section>
+                    <section class="form-step">
+                        <label for="surName">Personal Information</label>
+                        <input type="text" id="surName" placeholder="Surname" required>
+                        <input type="text" id="givenName" placeholder="Given Name" required>
+                        <input type="date" id="dateOfBirth" placeholder="Date of Birth" required>
+                        <input type="email" id="email" placeholder="Email" required>
+                        <p>Note: The certificate will be sent to the provided email address.</p>
+                        <button type="button" class="previous-step">Previous</button>
+                        <button type="button" class="next-step">Next</button>
+                    </section>
+                    <section class="form-step">
+                        <label for="absenceStartDate">Duration of absence</label>
+                        <input type="date" id="absenceStartDate" placeholder="Start Date" required>
+                        <input type="date" id="absenceEndDate" placeholder="End Date" required>
+                        <p>Note: The certificate will only cover the period from the start date to the end date.</p>
+                        <button type="button" class="previous-step">Previous</button>
+                        <button type="button" class="next-step">Next</button>
+                    </section>
+                    <section class="form-step">
+                        <h3>Payment Options</h3>
+                        <p>Select an external payment provider to complete your certificate request.</p>
+                        <!-- NOTE: This website does not handle or store card data. Payment is completed through external services only. -->
+                        <div class="payment-method">
+                            <label>
+                                <input type="radio" name="paymentMethod" value="creditcard" checked>
+                                Credit / Debit Card
+                            </label>
+                            <p>Use the external payment link below to complete card payment safely outside this website.</p>
+                            <a href="https://dummypay1.example.com" target="_blank" rel="noreferrer noopener">Pay with DummyCardProcessor</a>
+                        </div>
+                        <div class="payment-method">
+                            <label>
+                                <input type="radio" name="paymentMethod" value="paypal">
+                                PayPal
+                            </label>
+                            <p>Use the dummy PayPal link below to simulate the PayPal payment flow.</p>
+                            <a href="https://dummypay1.example.com" target="_blank" rel="noreferrer noopener">Pay with PayPal</a>
+                        </div>
+                        <div class="payment-method">
+                            <label>
+                                <input type="radio" name="paymentMethod" value="bank">
+                                Bank transfer
+                            </label>
+                            <p>Use the dummy bank portal link below to simulate a bank payment.</p>
+                            <a href="https://dummybank1.example.com" target="_blank" rel="noreferrer noopener">Pay with DummyBank1</a>
+                        </div>
+                        <p class="payment-note">This page only shows the available payment options. Card details are not captured or stored by JeffCare.</p>
+                        <button type="button" class="previous-step">Previous</button>
+                        <button type="submit">Submit Request</button>
+                    </section>
+
+
+
+                    
+
                 </form>
                 <!-- Container for displaying certificate request response -->
                 <div id="certResponse" class="response-box"></div>
@@ -60,7 +126,7 @@
 
         <!-- Footer section -->
         <footer>
-            <p>Ready for PostgreSQL integration</p>
+            <p>JeffCare</p>
         </footer>
     </div>
 

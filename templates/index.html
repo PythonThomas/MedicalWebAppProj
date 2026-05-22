@@ -42,6 +42,7 @@
         <!-- Main content sections -->
         <main>
             <!-- API Testing Section -->
+            <!-- This section is controlled by script.js: backendBtn invokes /api/hello and displayResponse() shows the result. -->
             <section class="api-section">
                 <h2>Test API</h2>
                 <!-- Button to test backend communication -->
@@ -51,6 +52,7 @@
             </section>
 
             <!-- Form Submission Section -->
+            <!-- The dataForm is handled by script.js submitForm() and sends a JSON payload to /api/data. -->
             <section class="form-section">
                 <h2>Send Data to backend</h2>
                 <!-- Form to send user input to the backend -->
@@ -63,7 +65,7 @@
                         required
                     >
                     <!-- Submit button -->
-                    <button type="submit data as string">Submit</button>
+                    <button type="submit">Submit</button>
                 </form>
                 <!-- Container for displaying form response -->
                 <div id="formResponse" class="response-box"></div>
@@ -72,7 +74,7 @@
 
         <!-- Footer section -->
         <footer>
-            <p>Ready for PostgreSQL integration</p>
+            <p>JeffCare</p>
         </footer>
     </div>
 

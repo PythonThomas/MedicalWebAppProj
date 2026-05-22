@@ -1,0 +1,24 @@
+# Virtual Environment
+env/
+venv/
+*.env
+
+# Excluded files
+README.md
+FUNCTIONS_REFERENCE.txt
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
