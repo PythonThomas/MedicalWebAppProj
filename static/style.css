@@ -220,7 +220,66 @@ button:active {
 }
 
 .form-step.active {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Cancel the section h2 bottom margin inside flex form steps so gap handles spacing */
+.form-step h2,
+.form-step h3 {
+    margin-bottom: 0;
+}
+
+/* Row container for Previous / Next / Submit buttons at the bottom of each step */
+.step-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    margin-top: 4px;
+}
+
+/* Inline validation error shown inside a step when required fields are empty */
+.step-error {
+    color: #b91c1c;
+    background: #fef2f2;
+    border: 1px solid #fca5a5;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.9rem;
+}
+
+/* Payment option card: bordered box with spacing between options */
+.payment-method {
+    background: var(--surface-strong);
+    border: 1px solid rgba(15, 61, 145, 0.15);
+    border-radius: 10px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Radio + text label inside a payment card */
+.payment-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Muted smaller text for the payment disclaimer at the bottom */
+.payment-note {
+    font-size: 0.85rem;
+    color: var(--muted-color);
+}
+
+/* Inline note paragraphs inside form steps */
+.form-note {
+    font-size: 0.92rem;
+    color: var(--muted-color);
+    line-height: 1.5;
 }
 
 /* Step counter shown in the certificate request flow.
@@ -245,12 +304,17 @@ button:active {
    All page forms share consistent field appearance and focus styling. */
 input[type="text"],
 input[type="email"],
+input[type="date"],
+select,
 textarea {
     width: 100%;
     padding: 14px;
     border: 2px solid #e0e0e0;
     border-radius: 8px;
     font-size: 1em;
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-color);
+    background: white;
     transition: border-color 0.3s, box-shadow 0.3s;
 }
 
@@ -260,9 +324,11 @@ textarea {
     resize: vertical;
 }
 
-/* Focus state for inputs and textarea */
+/* Focus state for inputs, select, and textarea */
 input[type="text"]:focus,
 input[type="email"]:focus,
+input[type="date"]:focus,
+select:focus,
 textarea:focus {
     outline: none;
     border-color: var(--primary-color);
@@ -298,6 +364,581 @@ button[type="submit"] {
 /* Show response box when data is displayed */
 .response-box.show {
     display: block;
+}
+
+/* ============================================
+   PAYPAL PAYMENT STEP STYLES
+   ============================================ */
+/* Prominent price card shown at the top of the payment step */
+.price-display {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    border-radius: 12px;
+    padding: 20px 24px;
+}
+
+.price-label {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+.price-amount {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+/* Base style for the payment status message — hidden until JS sets it visible */
+.payment-status {
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+.payment-status--pending {
+    background: #f0f4ff;
+    color: var(--primary-color);
+    border: 1px solid rgba(15, 61, 145, 0.2);
+}
+
+.payment-status--success {
+    background: #f0fdf4;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+}
+
+.payment-status--error {
+    background: #fef2f2;
+    color: #b91c1c;
+    border: 1px solid #fca5a5;
+}
+
+.payment-status--info {
+    background: #f8fafc;
+    color: var(--muted-color);
+    border: 1px solid #e2e8f0;
+}
+
+/* ============================================
+   LANDING PAGE — CONTAINER & MAIN OVERRIDES
+   ============================================ */
+/* Widen the container slightly for the landing page's multi-column layouts */
+.landing-page .container {
+    max-width: 920px;
+    width: min(96%, 920px);
+}
+
+/* Remove generic main padding so each landing section controls its own spacing */
+.landing-page main {
+    padding: 0;
+}
+
+/* Cancel the default section bottom margin for landing sections */
+.landing-page section {
+    margin-bottom: 0;
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+.landing-hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+    background: linear-gradient(135deg, #0f3d91 0%, #57a6e8 100%);
+    color: white;
+    padding: 56px 44px;
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.hero-content h1 {
+    font-size: 2.2rem;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    margin: 0;
+}
+
+.hero-content p {
+    font-size: 1.05rem;
+    opacity: 0.9;
+    line-height: 1.7;
+    margin: 0;
+}
+
+/* Small pill badge above the headline */
+.hero-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.32);
+    border-radius: 999px;
+    padding: 6px 16px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    width: fit-content;
+}
+
+/* White CTA button — stands out against the blue gradient */
+.hero-cta {
+    background: white !important;
+    color: var(--primary-color) !important;
+    border: none !important;
+    padding: 16px 32px !important;
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    width: fit-content;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18) !important;
+}
+
+.hero-cta:hover {
+    background: #eef5ff !important;
+    transform: translateY(-2px);
+}
+
+/* ============================================
+   IMAGE PLACEHOLDERS
+   ============================================ */
+/* Base placeholder used wherever a real image will go */
+.image-placeholder {
+    border: 2px dashed rgba(15, 61, 145, 0.25);
+    border-radius: 16px;
+    background: var(--surface-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted-color);
+    font-size: 0.88rem;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Hero image slot — tall rectangle matching the hero text height */
+.image-placeholder--hero {
+    border-color: rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.7);
+    min-height: 300px;
+    border-radius: 20px;
+}
+
+/* Full-width banner placeholder between sections */
+.image-placeholder--wide {
+    min-height: 220px;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+}
+
+/* Small circular avatar for testimonials */
+.image-placeholder--avatar {
+    width: 64px;
+    height: 64px;
+    min-height: unset;
+    border-radius: 50%;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+/* Wrapper that lets the wide placeholder bleed to container edges */
+.landing-image-row {
+    margin: 0;
+}
+
+/* ============================================
+   STATS BAR
+   ============================================ */
+.stats-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 28px 44px;
+    background: var(--surface-color);
+    border-top: 1px solid rgba(15, 61, 145, 0.08);
+    border-bottom: 1px solid rgba(15, 61, 145, 0.08);
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.stat-number {
+    font-size: 1.55rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    letter-spacing: -0.02em;
+}
+
+.stat-label {
+    font-size: 0.78rem;
+    color: var(--muted-color);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+/* Thin vertical rule between stats */
+.stat-divider {
+    width: 1px;
+    height: 40px;
+    background: rgba(15, 61, 145, 0.12);
+}
+
+/* ============================================
+   LANDING SECTION BASE STYLES
+   ============================================ */
+.landing-section {
+    padding: 56px 44px;
+}
+
+/* Alternate background for visual rhythm between sections */
+.landing-section--alt {
+    background: var(--surface-color);
+}
+
+/* Small uppercase label above section headings */
+.section-eyebrow {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--secondary-color);
+    margin-bottom: 8px;
+}
+
+/* Override section h2 margin inside landing sections */
+.section-heading {
+    color: var(--primary-color);
+    font-size: 1.75rem;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+}
+
+.section-sub {
+    color: var(--muted-color);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 36px;
+    max-width: 560px;
+}
+
+/* ============================================
+   HOW IT WORKS — STEP CARDS
+   ============================================ */
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.step-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 28px 24px;
+    background: var(--surface-strong);
+    border: 1px solid rgba(15, 61, 145, 0.1);
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(16, 42, 90, 0.06);
+}
+
+/* Numbered circle */
+.step-number {
+    width: 46px;
+    height: 46px;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.step-card h3 {
+    color: var(--primary-color);
+    font-size: 1rem;
+    margin: 0;
+}
+
+.step-card p {
+    color: var(--muted-color);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ============================================
+   WHY JEFFCARE — FEATURE CARDS
+   ============================================ */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.feature-card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 28px 24px;
+    background: var(--surface-strong);
+    border: 1px solid rgba(15, 61, 145, 0.1);
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(16, 42, 90, 0.06);
+}
+
+/* Icon container with a soft tinted background */
+.feature-icon {
+    width: 52px;
+    height: 52px;
+    background: linear-gradient(135deg, rgba(15, 61, 145, 0.08) 0%, rgba(87, 166, 232, 0.14) 100%);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    flex-shrink: 0;
+}
+
+.feature-icon svg {
+    width: 26px;
+    height: 26px;
+}
+
+.feature-card h3 {
+    color: var(--primary-color);
+    font-size: 1.02rem;
+    margin: 0;
+}
+
+.feature-card p {
+    color: var(--muted-color);
+    font-size: 0.9rem;
+    line-height: 1.65;
+    margin: 0;
+}
+
+/* ============================================
+   TESTIMONIALS
+   ============================================ */
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.testimonial-card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 28px 24px;
+    background: var(--surface-strong);
+    border: 1px solid rgba(15, 61, 145, 0.1);
+    border-radius: 16px;
+}
+
+.testimonial-text {
+    color: var(--text-color);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    font-style: italic;
+    margin: 0;
+    flex: 1;
+}
+
+.testimonial-author {
+    color: var(--muted-color);
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* ============================================
+   FINAL CTA BANNER
+   ============================================ */
+.cta-banner {
+    padding: 64px 44px;
+    text-align: center;
+    background: linear-gradient(135deg, #0f3d91 0%, #57a6e8 100%);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.cta-banner h2 {
+    font-size: 1.9rem;
+    color: white;
+    letter-spacing: -0.02em;
+    margin: 0;
+}
+
+.cta-banner p {
+    opacity: 0.9;
+    font-size: 1.05rem;
+    max-width: 520px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.cta-banner button {
+    background: white;
+    color: var(--primary-color);
+    border: none;
+    padding: 18px 40px;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-top: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+.cta-banner button:hover {
+    background: #eef5ff;
+}
+
+/* ============================================
+   RESPONSIVE — collapse grids on small screens
+   ============================================ */
+@media (max-width: 640px) {
+    .landing-hero {
+        grid-template-columns: 1fr;
+        padding: 40px 24px;
+    }
+
+    .hero-image-slot {
+        display: none;
+    }
+
+    .stats-bar {
+        flex-wrap: wrap;
+        gap: 20px;
+        padding: 24px;
+    }
+
+    .stat-divider {
+        display: none;
+    }
+
+    .steps-grid,
+    .features-grid,
+    .testimonials-grid,
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .trust-divider {
+        display: none;
+    }
+
+    .landing-section,
+    .cta-banner {
+        padding: 40px 24px;
+    }
+}
+
+/* ============================================
+   ABOUT PAGE — CONTACT GRID
+   ============================================ */
+/* 2×2 grid of contact detail cards on the About Us page */
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.contact-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 28px 24px;
+    background: var(--surface-strong);
+    border: 1px solid rgba(15, 61, 145, 0.1);
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(16, 42, 90, 0.06);
+}
+
+.contact-card h3 {
+    color: var(--primary-color);
+    font-size: 1rem;
+    margin: 0;
+}
+
+/* Amber-tinted placeholder text — visually flags values that must be replaced */
+.contact-placeholder {
+    font-size: 0.97rem;
+    font-weight: 600;
+    color: #92400e;
+    background: #fffbeb;
+    border: 1px dashed #f59e0b;
+    border-radius: 6px;
+    padding: 6px 10px;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.contact-note {
+    font-size: 0.85rem;
+    color: var(--muted-color);
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* ============================================
+   CERTIFICATE REQUEST PAGE — TRUST BAR
+   ============================================ */
+/* Row of reassurance items shown beneath the page header */
+.trust-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 18px 28px;
+    background: var(--surface-color);
+    border-bottom: 1px solid rgba(15, 61, 145, 0.08);
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.trust-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted-color);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.trust-icon {
+    display: flex;
+    align-items: center;
+    color: var(--secondary-color);
+}
+
+.trust-icon svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+/* Thin vertical rule between trust items */
+.trust-divider {
+    width: 1px;
+    height: 28px;
+    background: rgba(15, 61, 145, 0.12);
+    flex-shrink: 0;
 }
 
 /* ============================================

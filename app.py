@@ -42,7 +42,7 @@ def index():
 @app.route('/request-certificate')
 def request_certificate():
     """Serve the certificate request page (reqcrt.html)"""
-    return render_template('reqcrt.html')
+    return render_template('reqcrt.html', paypal_client_id=os.getenv('PAYPAL_CLIENT_ID', ''))
 
 @app.route('/contact')
 def contact():

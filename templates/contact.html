@@ -1,73 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Character encoding and viewport settings for responsive design -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - JeffCare</title>
-    <!-- Link to main stylesheet for styling all pages -->
+    <title>About Us - JeffCare</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
+<body class="landing-page">
+
     <!-- ============================================
          HEADER & NAVIGATION
          ============================================ -->
-    <!-- Main header with navigation buttons - consistent across all pages -->
     <header class="header-container">
-        <!-- Application title/logo -->
         <div>
             <h1>JeffCare</h1>
         </div>
-        <!-- Navigation button container -->
         <div class="button-container">
-            <!-- Home button - returns to index page -->
             <button id="homeBtn">Home</button>
-            <!-- Request Certificate button - navigates to certificate request page -->
             <button id="reqcrtBtn">Request Certificate</button>
-            <!-- Contact button - current page -->
-            <button id="contactBtn">Contact Us</button>
+            <button id="contactBtn">About us</button>
         </div>
     </header>
 
-    <!-- ============================================
-         MAIN CONTENT AREA
-         ============================================ -->
     <div class="container">
-        <!-- Page header section -->
-        <header>
-            <h1>Contact Us</h1>
-            <p>Reach out with your questions or feedback.</p>
-        </header>
-
-        <!-- Main content sections -->
         <main>
-            <!-- Contact Form Section -->
-            <!-- This form is processed by script.js using submitForm() and displays the result in contactResponse. -->
-            <section class="form-section">
-                <h2>Contact Form</h2>
-                <!-- Form for collecting contact information -->
-                <form id="contactForm">
-                    <!-- User name input field -->
-                    <input type="text" id="contactName" placeholder="Your name" required>
-                    <!-- User email address input field -->
-                    <input type="email" id="contactEmail" placeholder="Your email" required>
-                    <!-- Message textarea for longer form content -->
-                    <textarea id="contactMessage" placeholder="Your message" rows="5" required></textarea>
-                    <!-- Submit button to send the contact message -->
-                    <button type="submit">Send Message</button>
-                </form>
-                <!-- Container for displaying contact form response -->
-                <div id="contactResponse" class="response-box"></div>
+
+            <!-- ============================================
+                 ABOUT HERO
+                 ============================================ -->
+            <section class="landing-hero">
+                <div class="hero-content">
+                    <span class="hero-badge">Doctor-led &mdash; trusted online care</span>
+                    <h1>Healthcare That Comes to You</h1>
+                    <p>JeffCare was founded with a simple idea: accessing a medical certificate shouldn&rsquo;t mean spending half your day in a waiting room. We connect patients with licensed Australian medical professionals who review requests promptly and deliver certified documentation straight to your inbox.</p>
+                </div>
+                <div class="hero-image-slot">
+                    <!--
+                        REPLACE THIS BLOCK WITH AN IMAGE:
+                        <img src="{{ url_for('static', filename='images/about-team.jpg') }}"
+                             alt="The JeffCare medical team"
+                             class="hero-img">
+                    -->
+                    <div class="image-placeholder image-placeholder--hero">
+                        <span>Image: team photo or professional medical setting</span>
+                    </div>
+                </div>
             </section>
+
+            <!-- ============================================
+                 MISSION & VALUES
+                 ============================================ -->
+            <section class="landing-section">
+                <p class="section-eyebrow">Our mission</p>
+                <h2 class="section-heading">Professional care, without the barriers</h2>
+                <p class="section-sub">We believe every patient deserves timely, affordable access to medical support &mdash; wherever they are.</p>
+                <div class="features-grid">
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                            </svg>
+                        </div>
+                        <h3>Patient-first</h3>
+                        <p>Everything we do is designed around you. Simple forms, fast turnaround, and clear communication at every step of the process.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                            </svg>
+                        </div>
+                        <h3>Legitimately certified</h3>
+                        <p>Every certificate is reviewed and signed by a registered medical professional, accepted by employers and educational institutions across Australia.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                            </svg>
+                        </div>
+                        <h3>Secure &amp; private</h3>
+                        <p>Your personal and medical information is handled with the utmost care. We never store payment details, and your privacy is always our priority.</p>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ============================================
+                 WIDE IMAGE PLACEHOLDER
+                 ============================================ -->
+            <div class="landing-image-row">
+                <!--
+                    REPLACE THIS BLOCK WITH AN IMAGE:
+                    <img src="{{ url_for('static', filename='images/about-clinic.jpg') }}"
+                         alt="JeffCare clinic or consultation setting"
+                         class="landing-wide-img">
+                -->
+                <div class="image-placeholder image-placeholder--wide">
+                    <span>Image: clinic interior, consultation setting, or team at work</span>
+                </div>
+            </div>
+
+            <!-- ============================================
+                 CONTACT DETAILS
+                 ============================================ -->
+            <section class="landing-section landing-section--alt">
+                <p class="section-eyebrow">Get in touch</p>
+                <h2 class="section-heading">We&rsquo;d love to hear from you</h2>
+                <p class="section-sub">Have a question about your certificate, need support, or want to learn more? Reach out through any of the channels below.</p>
+
+                <div class="contact-grid">
+
+                    <div class="contact-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                        </div>
+                        <h3>Email</h3>
+                        <p class="contact-placeholder">[your.email@example.com]</p>
+                        <p class="contact-note">We aim to respond within one business day.</p>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.56 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.5a16 16 0 0 0 6 6l.88-.88a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                            </svg>
+                        </div>
+                        <h3>Phone</h3>
+                        <p class="contact-placeholder">[+61 XXX XXX XXX]</p>
+                        <p class="contact-note">Available during business hours.</p>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                        </div>
+                        <h3>Business hours</h3>
+                        <p class="contact-placeholder">[Mon &ndash; Fri: 9 am &ndash; 5 pm AEST]</p>
+                        <p class="contact-note">Certificate requests are accepted 24 / 7.</p>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                <circle cx="12" cy="10" r="3"/>
+                            </svg>
+                        </div>
+                        <h3>Address</h3>
+                        <p class="contact-placeholder">[123 Street Name, Suburb, State XXXX]</p>
+                        <p class="contact-note">All services are delivered fully online.</p>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ============================================
+                 CONTACT FORM
+                 ============================================ -->
+            <section class="landing-section">
+                <p class="section-eyebrow">Send a message</p>
+                <h2 class="section-heading">Contact form</h2>
+                <p class="section-sub">Fill in the form below and a member of our team will get back to you promptly.</p>
+                <div class="form-section">
+                    <form id="contactForm">
+                        <input type="text" id="contactName" placeholder="Your name" required>
+                        <input type="email" id="contactEmail" placeholder="Your email" required>
+                        <textarea id="contactMessage" placeholder="Your message" rows="5" required></textarea>
+                        <button type="submit">Send Message</button>
+                    </form>
+                    <div id="contactResponse" class="response-box"></div>
+                </div>
+            </section>
+
         </main>
 
-        <!-- Footer section -->
         <footer>
             <p>JeffCare</p>
         </footer>
     </div>
 
-    <!-- Load the main JavaScript file for interactivity -->
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

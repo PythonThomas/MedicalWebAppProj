@@ -1,84 +1,220 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Character encoding and viewport settings for responsive design -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JeffCare</title>
-    <!-- Link to main stylesheet for styling all pages -->
+    <title>JeffCare — Medical Certificates Online</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
+<body class="landing-page">
+
     <!-- ============================================
          HEADER & NAVIGATION
          ============================================ -->
-    <!-- Main header with navigation buttons - visible on all pages -->
-    <header class = "header-container">
-        <!-- Application title/logo -->
+    <header class="header-container">
         <div>
             <h1>JeffCare</h1>
         </div>
-        <!-- Navigation button container -->
-        <div class = "button-container">
-            <!-- Home button - navigates to index -->
-            <button id = "homeBtn">Home</button>
-            <!-- Request Certificate button - navigates to certificate request page -->
-            <button id = "reqcrtBtn">Request Certificate</button>
-            <!-- Contact button - navigates to contact form page -->
-            <button id = "contactBtn">Contact Us</button>
+        <div class="button-container">
+            <button id="homeBtn">Home</button>
+            <button id="reqcrtBtn">Request Certificate</button>
+            <button id="contactBtn">About us</button>
         </div>
     </header>
-    
-    <!-- ============================================
-         MAIN CONTENT AREA
-         ============================================ -->
+
     <div class="container">
-        <!-- Page header section -->
-        <header>
-            <h1>JeffCare</h1>
-            <p>Doctor notes</p>
-        </header>
-
-        <!-- Main content sections -->
         <main>
-            <!-- API Testing Section -->
-            <!-- This section is controlled by script.js: backendBtn invokes /api/hello and displayResponse() shows the result. -->
-            <section class="api-section">
-                <h2>Test API</h2>
-                <!-- Button to test backend communication -->
-                <button id="backendBtn">Message from backend</button>
-                <!-- Container for displaying API response -->
-                <div id="response" class="response-box"></div>
+
+            <!-- ============================================
+                 HERO SECTION
+                 ============================================ -->
+            <section class="landing-hero">
+                <div class="hero-content">
+                    <span class="hero-badge">From just $12.99 AUD &mdash; flat fee, no surprises</span>
+                    <h1>Professional Medical Certificates,<br>Online in Minutes</h1>
+                    <p>Skip the waiting room. JeffCare connects you with licensed medical professionals who review your request and deliver a certified medical certificate straight to your inbox &mdash; fast, discreet, and fully professional.</p>
+                    <button class="hero-cta" id="heroCta">Request Your Certificate &rarr;</button>
+                </div>
+                <div class="hero-image-slot">
+                    <!--
+                        REPLACE THIS BLOCK WITH AN IMAGE:
+                        <img src="{{ url_for('static', filename='images/hero.jpg') }}"
+                             alt="Doctor at a desk reviewing a medical form"
+                             class="hero-img">
+                    -->
+                    <div class="image-placeholder image-placeholder--hero">
+                        <span>Image: doctor or professional medical setting</span>
+                    </div>
+                </div>
             </section>
 
-            <!-- Form Submission Section -->
-            <!-- The dataForm is handled by script.js submitForm() and sends a JSON payload to /api/data. -->
-            <section class="form-section">
-                <h2>Send Data to backend</h2>
-                <!-- Form to send user input to the backend -->
-                <form id="dataForm">
-                    <!-- Name input field -->
-                    <input 
-                        type="text" 
-                        id="nameInput" 
-                        placeholder="Enter your name" 
-                        required
-                    >
-                    <!-- Submit button -->
-                    <button type="submit">Submit</button>
-                </form>
-                <!-- Container for displaying form response -->
-                <div id="formResponse" class="response-box"></div>
+            <!-- ============================================
+                 STATS BAR
+                 ============================================ -->
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <span class="stat-number">$12.99</span>
+                    <span class="stat-label">AUD flat fee</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-number">&lt;&nbsp;24h</span>
+                    <span class="stat-label">Typical delivery</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Online process</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-number">Secure</span>
+                    <span class="stat-label">PayPal payment</span>
+                </div>
+            </div>
+
+            <!-- ============================================
+                 HOW IT WORKS
+                 ============================================ -->
+            <section class="landing-section">
+                <p class="section-eyebrow">Simple process</p>
+                <h2 class="section-heading">How it works</h2>
+                <p class="section-sub">Three quick steps stand between you and your certificate.</p>
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h3>Fill in the form</h3>
+                        <p>Tell us the reason for your absence and provide a few personal details. The whole form takes under two minutes.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h3>Pay securely via PayPal</h3>
+                        <p>Complete your $12.99 AUD payment through PayPal. No card details are ever stored on our servers.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h3>Receive your certificate</h3>
+                        <p>Your request is reviewed by a medical professional and a signed certificate is sent directly to your email &mdash; often within hours.</p>
+                    </div>
+                </div>
             </section>
+
+            <!-- ============================================
+                 WIDE IMAGE PLACEHOLDER (e.g. clinic / team photo)
+                 ============================================ -->
+            <div class="landing-image-row">
+                <!--
+                    REPLACE THIS BLOCK WITH AN IMAGE:
+                    <img src="{{ url_for('static', filename='images/clinic.jpg') }}"
+                         alt="The JeffCare team or clinic"
+                         class="landing-wide-img">
+                -->
+                <div class="image-placeholder image-placeholder--wide">
+                    <span>Image: clinic, team photo, or professional setting</span>
+                </div>
+            </div>
+
+            <!-- ============================================
+                 WHY JEFFCARE — FEATURE CARDS
+                 ============================================ -->
+            <section class="landing-section landing-section--alt">
+                <p class="section-eyebrow">Why JeffCare</p>
+                <h2 class="section-heading">Professional care, without the wait</h2>
+                <p class="section-sub">We built JeffCare because getting a simple medical certificate shouldn&rsquo;t take up your whole day.</p>
+                <div class="features-grid">
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <!-- Clock icon -->
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                        </div>
+                        <h3>Almost instant</h3>
+                        <p>Most certificates are reviewed and delivered within hours. No appointment needed, no waiting room, no wasted time sitting in a clinic.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <!-- Shield-check icon -->
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                <polyline points="9 12 11 14 15 10"/>
+                            </svg>
+                        </div>
+                        <h3>Doctor-reviewed</h3>
+                        <p>Every request is assessed by a licensed medical professional. You receive a legitimate, signed document accepted by employers and institutions.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <!-- Tag / price icon -->
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/>
+                                <line x1="7" y1="7" x2="7.01" y2="7"/>
+                            </svg>
+                        </div>
+                        <h3>Transparent pricing</h3>
+                        <p>One flat fee of $12.99 AUD. No hidden charges, no subscription, no follow-up costs. You pay once and receive your certificate.</p>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ============================================
+                 TESTIMONIALS (replace text with real quotes)
+                 ============================================ -->
+            <section class="landing-section">
+                <p class="section-eyebrow">Trusted by patients</p>
+                <h2 class="section-heading">What our patients say</h2>
+                <div class="testimonials-grid">
+
+                    <div class="testimonial-card">
+                        <!--
+                            REPLACE WITH PATIENT PHOTO:
+                            <img src="{{ url_for('static', filename='images/patient1.jpg') }}"
+                                 alt="Patient" class="testimonial-avatar-img">
+                        -->
+                        <div class="image-placeholder image-placeholder--avatar"></div>
+                        <p class="testimonial-text">&ldquo;Got my certificate the same afternoon I submitted the form. Incredibly straightforward process.&rdquo;</p>
+                        <p class="testimonial-author">&mdash; Patient name here</p>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="image-placeholder image-placeholder--avatar"></div>
+                        <p class="testimonial-text">&ldquo;Professional, affordable, and no waiting room. Exactly what I needed when I couldn&rsquo;t make it to a clinic.&rdquo;</p>
+                        <p class="testimonial-author">&mdash; Patient name here</p>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="image-placeholder image-placeholder--avatar"></div>
+                        <p class="testimonial-text">&ldquo;The certificate was accepted by my employer without any issues. Fully legitimate and delivered fast.&rdquo;</p>
+                        <p class="testimonial-author">&mdash; Patient name here</p>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ============================================
+                 FINAL CALL TO ACTION BANNER
+                 ============================================ -->
+            <section class="cta-banner">
+                <h2>Ready to skip the waiting room?</h2>
+                <p>Get your doctor-reviewed medical certificate today &mdash; online, fast, and for just $12.99 AUD.</p>
+                <button id="ctaBtn">Request Your Certificate Now &rarr;</button>
+            </section>
+
         </main>
 
-        <!-- Footer section -->
         <footer>
             <p>JeffCare</p>
         </footer>
     </div>
 
-    <!-- Load the main JavaScript file for interactivity -->
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

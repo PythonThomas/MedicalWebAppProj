@@ -33,6 +33,22 @@ if (contactBtn) {
     });
 }
 
+// Landing page hero CTA and footer CTA — both navigate to the certificate request form
+const heroCta = document.getElementById('heroCta');
+const ctaBtn = document.getElementById('ctaBtn');
+
+if (heroCta) {
+    heroCta.addEventListener('click', () => {
+        window.location.href = '/request-certificate';
+    });
+}
+
+if (ctaBtn) {
+    ctaBtn.addEventListener('click', () => {
+        window.location.href = '/request-certificate';
+    });
+}
+
 // ============================================
 // BACKEND API COMMUNICATION
 // ============================================
@@ -119,9 +135,9 @@ submitForm('certificateForm', 'certResponse', () => {
     const certEmail = document.getElementById('email');
     const absenceStartDate = document.getElementById('absenceStartDate');
     const absenceEndDate = document.getElementById('absenceEndDate');
-    const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked');
+    const form = document.getElementById('certificateForm');
 
-    if (!reasonInput || !surName || !givenName || !dateOfBirth || !certEmail || !absenceStartDate || !absenceEndDate || !paymentMethod) return null;
+    if (!reasonInput || !surName || !givenName || !dateOfBirth || !certEmail || !absenceStartDate || !absenceEndDate) return null;
 
     return {
         formType: 'certificateRequest',
@@ -133,7 +149,7 @@ submitForm('certificateForm', 'certResponse', () => {
         email: certEmail.value.trim(),
         absenceStartDate: absenceStartDate.value,
         absenceEndDate: absenceEndDate.value,
-        paymentMethod: paymentMethod.value
+        paypalOrderId: form ? (form.dataset.paypalOrderId || '') : '',
     };
 });
 
@@ -150,6 +166,76 @@ submitForm('contactForm', 'contactResponse', () => {
         message: contactMessage.value
     };
 });
+
+/**
+ * validateStep - Checks that all required fields in the current step are filled.
+ * Shows an inline .step-error message inside the step if validation fails.
+ * @param {HTMLElement} form - The form element containing the steps
+ * @param {number} stepIndex - Zero-based index of the step to validate
+ * @returns {boolean} true if the step is valid, false otherwise
+ *
+ * Step 0: certificateReasonFor must have a non-empty value; if "other", otherReason must be filled.
+ * Step 1: surName, givenName, dateOfBirth, and email must all be non-empty.
+ * Step 2: absenceStartDate and absenceEndDate must both be set, and end >= start.
+ * Step 3 (payment): no required-field validation; always returns true.
+ */
+function validateStep(form, stepIndex) {
+    const steps = Array.from(form.querySelectorAll('.form-step'));
+    const step = steps[stepIndex];
+    if (!step) return true;
+
+    const existingError = step.querySelector('.step-error');
+    if (existingError) existingError.remove();
+
+    let errorMessage = null;
+
+    if (stepIndex === 0) {
+        const reason = form.querySelector('#certificateReasonFor');
+        if (!reason || !reason.value) {
+            errorMessage = 'Please select a reason for absence before continuing.';
+        } else if (reason.value === 'other') {
+            const otherReason = form.querySelector('#otherReason');
+            if (!otherReason || !otherReason.value.trim()) {
+                errorMessage = 'Please specify your reason for absence.';
+            }
+        }
+    } else if (stepIndex === 1) {
+        const surName = form.querySelector('#surName');
+        const givenName = form.querySelector('#givenName');
+        const dateOfBirth = form.querySelector('#dateOfBirth');
+        const email = form.querySelector('#email');
+        if (!surName?.value.trim()) {
+            errorMessage = 'Please enter your surname.';
+        } else if (!givenName?.value.trim()) {
+            errorMessage = 'Please enter your given name.';
+        } else if (!dateOfBirth?.value) {
+            errorMessage = 'Please enter your date of birth.';
+        } else if (!email?.value.trim()) {
+            errorMessage = 'Please enter your email address.';
+        }
+    } else if (stepIndex === 2) {
+        const startDate = form.querySelector('#absenceStartDate');
+        const endDate = form.querySelector('#absenceEndDate');
+        if (!startDate?.value) {
+            errorMessage = 'Please enter the start date of your absence.';
+        } else if (!endDate?.value) {
+            errorMessage = 'Please enter the end date of your absence.';
+        } else if (endDate.value < startDate.value) {
+            errorMessage = 'The end date must be on or after the start date.';
+        }
+    }
+
+    if (errorMessage) {
+        const errorEl = document.createElement('p');
+        errorEl.className = 'step-error';
+        errorEl.textContent = errorMessage;
+        const stepButtons = step.querySelector('.step-buttons');
+        step.insertBefore(errorEl, stepButtons);
+        return false;
+    }
+
+    return true;
+}
 
 function setupMultiStepForm(formId) {
     const form = document.getElementById(formId);
@@ -171,10 +257,17 @@ function setupMultiStepForm(formId) {
         if (stepCounter) {
             stepCounter.textContent = `Step ${currentStep + 1} / ${steps.length}`;
         }
+        if (formId === 'certificateForm' && index === steps.length - 1) {
+            initPayPalStep(form);
+        }
     };
 
     form.querySelectorAll('.next-step').forEach((button) => {
-        button.addEventListener('click', () => showStep(Math.min(currentStep + 1, steps.length - 1)));
+        button.addEventListener('click', () => {
+            if (validateStep(form, currentStep)) {
+                showStep(Math.min(currentStep + 1, steps.length - 1));
+            }
+        });
     });
 
     form.querySelectorAll('.previous-step').forEach((button) => {
@@ -219,6 +312,121 @@ function resetFormSteps(formId) {
     if (reasonSelect) {
         reasonSelect.dispatchEvent(new Event('change'));
     }
+
+    // Reset PayPal state so buttons re-render cleanly on the next visit to step 4
+    const paypalContainer = document.getElementById('paypal-button-container');
+    if (paypalContainer) {
+        paypalContainer.innerHTML = '';
+        delete paypalContainer.dataset.initialized;
+    }
+    const paymentStatus = document.getElementById('payment-status');
+    if (paymentStatus) {
+        paymentStatus.style.display = 'none';
+        paymentStatus.textContent = '';
+    }
+    delete form.dataset.paypalOrderId;
+}
+
+// ============================================
+// PAYPAL INTEGRATION
+// ============================================
+
+/**
+ * initPayPalStep - Lazy-loads the PayPal JS SDK when the user reaches the
+ * payment step, then calls renderPayPalButtons once the SDK is ready.
+ * Reads the PayPal client ID from data-client-id on #paypal-button-container,
+ * which is populated by Jinja2 from the PAYPAL_CLIENT_ID environment variable.
+ * @param {HTMLElement} form - The certificate request form element
+ */
+function initPayPalStep(form) {
+    const container = document.getElementById('paypal-button-container');
+    if (!container || container.dataset.initialized) return;
+
+    const clientId = container.dataset.clientId;
+    if (!clientId) {
+        container.textContent = 'PayPal is not configured. Please contact support.';
+        return;
+    }
+
+    if (window.paypal) {
+        renderPayPalButtons(form);
+        return;
+    }
+
+    const script = document.createElement('script');
+    script.src = `https://www.paypal.com/sdk/js?client-id=${encodeURIComponent(clientId)}&currency=AUD`;
+    script.onload = () => renderPayPalButtons(form);
+    script.onerror = () => {
+        container.textContent = 'Failed to load PayPal. Please check your connection and try again.';
+    };
+    document.head.appendChild(script);
+}
+
+/**
+ * renderPayPalButtons - Renders the PayPal Smart Payment Buttons into
+ * #paypal-button-container. On createOrder, calls the backend to create a
+ * PayPal order for 12.99 AUD. On onApprove, calls the backend to capture
+ * the payment, then stores the order ID on the form and triggers submission.
+ * @param {HTMLElement} form - The certificate request form element
+ */
+function renderPayPalButtons(form) {
+    const container = document.getElementById('paypal-button-container');
+    if (!container || container.dataset.initialized) return;
+    container.dataset.initialized = 'true';
+
+    paypal.Buttons({
+        style: { layout: 'vertical', color: 'blue', shape: 'rect', label: 'pay' },
+
+        createOrder: async () => {
+            const res = await fetch('/api/paypal/create-order', { method: 'POST' });
+            const data = await res.json();
+            if (!data.id) throw new Error(data.message || 'Could not create PayPal order.');
+            return data.id;
+        },
+
+        onApprove: async (approvalData) => {
+            showPaymentStatus('Processing payment…', 'pending');
+            try {
+                const res = await fetch('/api/paypal/capture-order', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ orderID: approvalData.orderID }),
+                });
+                const result = await res.json();
+                if (result.status === 'success') {
+                    showPaymentStatus('Payment successful — submitting your request…', 'success');
+                    form.dataset.paypalOrderId = approvalData.orderID;
+                    form.requestSubmit();
+                } else {
+                    showPaymentStatus(result.message || 'Payment capture failed. Please try again.', 'error');
+                }
+            } catch (err) {
+                showPaymentStatus('Payment error: ' + err.message, 'error');
+            }
+        },
+
+        onCancel: () => {
+            showPaymentStatus('Payment cancelled. You can try again when ready.', 'info');
+        },
+
+        onError: () => {
+            showPaymentStatus('PayPal encountered an error. Please try again.', 'error');
+        },
+    }).render('#paypal-button-container');
+}
+
+/**
+ * showPaymentStatus - Updates #payment-status with a message and applies a
+ * type-specific CSS modifier class for visual feedback.
+ * @param {string} message - The status message to display
+ * @param {string} type - One of 'pending', 'success', 'error', 'info'
+ */
+function showPaymentStatus(message, type) {
+    const el = document.getElementById('payment-status');
+    if (!el) return;
+    el.textContent = message;
+    el.className = `payment-status payment-status--${type}`;
+    el.style.display = 'block';
 }
 
 // Initialize certificate request multi-step behavior

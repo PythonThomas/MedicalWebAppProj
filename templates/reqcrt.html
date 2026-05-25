@@ -25,7 +25,7 @@
             <!-- Request Certificate button - current page -->
             <button id="reqcrtBtn">Request Certificate</button>
             <!-- Contact button - navigates to contact form page -->
-            <button id="contactBtn">Contact Us</button>
+            <button id="contactBtn">About us</button>
         </div>
     </header>
 
@@ -35,21 +35,68 @@
     <div class="container">
         <!-- Page header section -->
         <header>
-            <h1>Request Certificate</h1>
-            <p>Fill in the required fields below to get your medical certificate.</p>
+            <h1>Request a medical certificate</h1>
+            <p>Complete the steps below honestly to get your medical certificate.</p>
         </header>
+
+        <!-- Trust bar — reassures patients before they start the form -->
+        <div class="trust-bar">
+            <div class="trust-item">
+                <span class="trust-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        <polyline points="9 12 11 14 15 10"/>
+                    </svg>
+                </span>
+                Licensed doctors
+            </div>
+            <div class="trust-divider"></div>
+            <div class="trust-item">
+                <span class="trust-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                    </svg>
+                </span>
+                Secure payment
+            </div>
+            <div class="trust-divider"></div>
+            <div class="trust-item">
+                <span class="trust-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                        <polyline points="22 4 12 14.01 9 11.01"/>
+                    </svg>
+                </span>
+                Certificate to your inbox
+            </div>
+            <div class="trust-divider"></div>
+            <div class="trust-item">
+                <span class="trust-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12 6 12 12 16 14"/>
+                    </svg>
+                </span>
+                Typically within 24 h
+            </div>
+        </div>
 
         <!-- Main content sections -->
         <main>
             <!-- Certificate Request Form Section -->
             <!-- This form is processed by script.js using submitForm() and displays the result in certResponse. -->
             <section class="form-section">
-                <h2>Certificate Request</h2>
                 <!-- Form for collecting certificate request information -->
                 <form id="certificateForm">
                     <div id="stepCounter" class="step-counter">Step 1 / 4</div>
                     <section class="form-step active">
-                        <label for="certificateReasonFor">Reason for absence</label>
+                        <h2>Inform us about the reason of your absence</h2>
+                        <label for="certificateReasonFor">Reason for absence:</label>
                         <select id="certificateReasonFor" required>
                             <option value="">Select a reason</option>
                             <option value="sick_leave">Sick leave</option>
@@ -60,58 +107,54 @@
                             <label for="otherReason">Please specify:</label>
                             <input type="text" id="otherReason" placeholder="Enter your reason">
                         </div>
-                        <p>Please note: JeffCare is currently unable to review requests for fitness to work certificates as part of the outcome of your consultation.</p>
-                        <button type="button" class="next-step">Next</button>
+                        <p class="form-note"><b>Please note:</b> JeffCare is currently unable to review requests for fitness to work certificates as part of the outcome of your consultation.</p>
+                        <div class="step-buttons">
+                            <button type="button" class="next-step">Next</button>
+                        </div>
                     </section>
                     <section class="form-step">
-                        <label for="surName">Personal Information</label>
+                        <h2>Share some details so we can contact you</h2>
+                        <label for="surName">Surname:</label>
                         <input type="text" id="surName" placeholder="Surname" required>
+                        <label for="givenName">Given name:</label>
                         <input type="text" id="givenName" placeholder="Given Name" required>
-                        <input type="date" id="dateOfBirth" placeholder="Date of Birth" required>
+                        <label for="dateOfBirth">Date of birth:</label>
+                        <input type="date" id="dateOfBirth" required>
+                        <label for="email">Email address:</label>
                         <input type="email" id="email" placeholder="Email" required>
-                        <p>Note: The certificate will be sent to the provided email address.</p>
-                        <button type="button" class="previous-step">Previous</button>
-                        <button type="button" class="next-step">Next</button>
+                        <p class="form-note"><b>Please note:</b> The certificate will be sent to the provided email address.</p>
+                        <div class="step-buttons">
+                            <button type="button" class="previous-step">Previous</button>
+                            <button type="button" class="next-step">Next</button>
+                        </div>
                     </section>
                     <section class="form-step">
-                        <label for="absenceStartDate">Duration of absence</label>
-                        <input type="date" id="absenceStartDate" placeholder="Start Date" required>
-                        <input type="date" id="absenceEndDate" placeholder="End Date" required>
-                        <p>Note: The certificate will only cover the period from the start date to the end date.</p>
-                        <button type="button" class="previous-step">Previous</button>
-                        <button type="button" class="next-step">Next</button>
+                        <h2>Please estimate the duration of your absence.</h2>
+                        <label for="absenceStartDate">Start date of absence:</label>
+                        <input type="date" id="absenceStartDate" required>
+                        <label for="absenceEndDate">End date of absence:</label>
+                        <input type="date" id="absenceEndDate" required>
+                        <p class="form-note"><b>Please note:</b> The certificate will only cover the period from the start date to the end date.</p>
+                        <div class="step-buttons">
+                            <button type="button" class="previous-step">Previous</button>
+                            <button type="button" class="next-step">Next</button>
+                        </div>
                     </section>
                     <section class="form-step">
-                        <h3>Payment Options</h3>
-                        <p>Select an external payment provider to complete your certificate request.</p>
-                        <!-- NOTE: This website does not handle or store card data. Payment is completed through external services only. -->
-                        <div class="payment-method">
-                            <label>
-                                <input type="radio" name="paymentMethod" value="creditcard" checked>
-                                Credit / Debit Card
-                            </label>
-                            <p>Use the external payment link below to complete card payment safely outside this website.</p>
-                            <a href="https://dummypay1.example.com" target="_blank" rel="noreferrer noopener">Pay with DummyCardProcessor</a>
+                        <h2>Payment</h2>
+                        <div class="price-display">
+                            <span class="price-label">Certificate processing fee</span>
+                            <span class="price-amount">$12.99 AUD</span>
                         </div>
-                        <div class="payment-method">
-                            <label>
-                                <input type="radio" name="paymentMethod" value="paypal">
-                                PayPal
-                            </label>
-                            <p>Use the dummy PayPal link below to simulate the PayPal payment flow.</p>
-                            <a href="https://dummypay1.example.com" target="_blank" rel="noreferrer noopener">Pay with PayPal</a>
+                        <p class="form-note"><b>Please note:</b> Payment is processed securely through PayPal. JeffCare does not handle or store any card or payment details.</p>
+                        <!-- PayPal Smart Payment Buttons are rendered here by script.js.
+                             data-client-id is populated by Jinja2 from the PAYPAL_CLIENT_ID env variable. -->
+                        <div id="paypal-button-container"
+                             data-client-id="{{ paypal_client_id }}"></div>
+                        <p id="payment-status" class="payment-status" style="display:none"></p>
+                        <div class="step-buttons">
+                            <button type="button" class="previous-step">Previous</button>
                         </div>
-                        <div class="payment-method">
-                            <label>
-                                <input type="radio" name="paymentMethod" value="bank">
-                                Bank transfer
-                            </label>
-                            <p>Use the dummy bank portal link below to simulate a bank payment.</p>
-                            <a href="https://dummybank1.example.com" target="_blank" rel="noreferrer noopener">Pay with DummyBank1</a>
-                        </div>
-                        <p class="payment-note">This page only shows the available payment options. Card details are not captured or stored by JeffCare.</p>
-                        <button type="button" class="previous-step">Previous</button>
-                        <button type="submit">Submit Request</button>
                     </section>
 
 
