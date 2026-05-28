@@ -12,6 +12,8 @@ from dotenv import load_dotenv
 # Load environment variables from .env file
 load_dotenv()
 
+from database import init_db
+
 # ============================================
 # FLASK APP INITIALIZATION
 # ============================================
@@ -23,6 +25,9 @@ CORS(app)
 # Import API blueprint and register it under the '/api' prefix
 from routes.api_routes import api_routes
 app.register_blueprint(api_routes, url_prefix='/api')
+
+# Create DB tables on startup if they don't exist yet
+init_db()
 
 # ============================================
 # CONFIGURATION
